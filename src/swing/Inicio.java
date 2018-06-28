@@ -11,6 +11,7 @@ import java.awt.event.ActionEvent;
 import java.awt.event.KeyEvent;
 import java.awt.event.MouseEvent;
 import java.util.StringTokenizer;
+import javax.swing.ImageIcon;
 import javax.swing.JOptionPane;
 import javax.swing.UIManager;
 
@@ -48,7 +49,7 @@ public class Inicio extends javax.swing.JFrame {
         segundosLabel.setVisible(false);
         barraProgresoGeneral.setVisible(false);
     }
-    
+
     public static void mostrarLabelsInformativos() {
         iteracionLabel.setVisible(true);
         iteracionActualLabel.setVisible(true);
@@ -76,7 +77,7 @@ public class Inicio extends javax.swing.JFrame {
     public void setEntornoGrafico() {
         this.getContentPane().setBackground(Color.DARK_GRAY);
         this.empezarTestButon.setBackground(Color.GRAY);
-        this.empezarTestButon.setForeground(Color.WHITE);
+        this.empezarTestButon.setForeground(Color.BLACK);
         this.escribaElNumeroLabel.setForeground(Color.WHITE);
         //this.iteracionesPredeterminadasComboBox.setBackground(Color.black);
         //this.iteracionesPredeterminadasComboBox.setForeground(Color.WHITE);
@@ -84,6 +85,8 @@ public class Inicio extends javax.swing.JFrame {
         pararHiloButon.setVisible(false);
         this.setSize(550, 125);
         this.ocultarLablesInformativos();
+        //setIconImage (new ImageIcon(getClass().getResource("Ico.png")).getImage());
+        
     }
 
     public void setIteracionesPredeterminadas(String c) {
@@ -149,8 +152,12 @@ public class Inicio extends javax.swing.JFrame {
         jButton4 = new javax.swing.JButton();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
+        setTitle("jBurning");
+        setIconImage(new ImageIcon("Resources/Ico.png").getImage());
         setResizable(false);
 
+        empezarTestButon.setBackground(new java.awt.Color(255, 255, 255));
+        empezarTestButon.setForeground(new java.awt.Color(0, 0, 0));
         empezarTestButon.setText("Empezar test");
         empezarTestButon.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -368,8 +375,8 @@ public class Inicio extends javax.swing.JFrame {
     private void empezarTestButonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_empezarTestButonActionPerformed
         // TODO add your handling code here:
         try {
-            if (numeroIteracionesTxt.getText().isEmpty() || Integer.valueOf(numeroIteracionesTxt.getText()) < 0 || Long.valueOf(numeroIteracionesTxt.getText()) > Integer.MAX_VALUE) {
-                JOptionPane.showMessageDialog(this, "Debe escribir un número de iteraciones correcto", "Error!", JOptionPane.ERROR_MESSAGE);
+            if (numeroIteracionesTxt.getText().isEmpty() || Integer.valueOf(numeroIteracionesTxt.getText()) < 100 || Long.valueOf(numeroIteracionesTxt.getText()) > Integer.MAX_VALUE) {
+                JOptionPane.showMessageDialog(this, "Debe escribir un número de iteraciones correcto. Mínimo 100. Máximo: " + Integer.MAX_VALUE, "Error!", JOptionPane.ERROR_MESSAGE);
             } else {
                 this.setSize(550, 500);
                 hilo = new ThreadPrincipal();
@@ -409,7 +416,7 @@ public class Inicio extends javax.swing.JFrame {
                 consolaTextPane.setCaretPosition(Inicio.consolaTextPane.getDocument().getLength());
                 pararHiloButon.setEnabled(false);
             } else {
-                JOptionPane.showMessageDialog(this, "Debe iniciar el proceso para pararlo", "Error!", JOptionPane.WARNING_MESSAGE);
+                JOptionPane.showMessageDialog(this, "Debe iniciar el proceso para pararlo", "Advertencia!", JOptionPane.WARNING_MESSAGE);
             }
         } catch (Exception error) {
             JOptionPane.showMessageDialog(this, error.getMessage());
@@ -424,7 +431,7 @@ public class Inicio extends javax.swing.JFrame {
         } catch (Exception error) {
             JOptionPane.showMessageDialog(this, error.getMessage(), "Error!", JOptionPane.ERROR_MESSAGE);
         }
-        */
+         */
         System.exit(0);
     }//GEN-LAST:event_jButton3ActionPerformed
 
@@ -442,8 +449,8 @@ public class Inicio extends javax.swing.JFrame {
         if ((evt.getKeyCode() == KeyEvent.VK_ENTER) && (consolaTextPane.isEditable()) && (!consolaTextPane.getText().isEmpty())) {
             Comandos.ejecutar(getUltimaLineaConsola());
         }
-        */
-        if(evt.getKeyCode() == KeyEvent.VK_BACK_SPACE){
+         */
+        if (evt.getKeyCode() == KeyEvent.VK_BACK_SPACE) {
             JOptionPane.showMessageDialog(this, "Borrando");
             consolaTextPane.setText(consolaTextPane.getText());
         }
@@ -491,6 +498,9 @@ public class Inicio extends javax.swing.JFrame {
         }
     }
 
+    
+    
+    
     /**
      * @param args the command line arguments
      */
@@ -516,7 +526,7 @@ public class Inicio extends javax.swing.JFrame {
         } catch (javax.swing.UnsupportedLookAndFeelException ex) {
             java.util.logging.Logger.getLogger(Inicio.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
         }
-        
+
         try {
             UIManager.setLookAndFeel(
                     //UIManager.getCrossPlatformLookAndFeelClassName()
@@ -524,10 +534,11 @@ public class Inicio extends javax.swing.JFrame {
             //com.sun.java.swing.plaf.gtk.GTKLookAndFeel
             //com.sun.java.swing.plaf.windows.WindowsLookAndFeel
             );
+
         } catch (Exception e) {
             System.err.println(e.getMessage());
-}
-        
+        }
+
         //</editor-fold>
 
         /* Create and display the form */

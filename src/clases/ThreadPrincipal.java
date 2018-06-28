@@ -41,9 +41,25 @@ public class ThreadPrincipal extends Thread{
             GregorianCalendar transcurso = new GregorianCalendar();
             long transcurrido = (transcurso.getTimeInMillis() - inicio.getTimeInMillis());
             System.out.println("Han transcurrido " + transcurrido + " milisegundos");
+            
+            //Para un buen cronometro
+            //Cuando pasa un minuto, se deben volver a cero los segundos
+            //Cuando pasa una hora, se deben volver a cero los minutos
+            //A segundos tenemos que quitarle 59 segundos por cada minuto que haya pasado
+            //Igual con horas y minutos
+            
+            int segundosTranscurridos = (int) (transcurrido / 1000);
+            int minutosTranscurridos = (int) (transcurrido / 1000 / 60);
+            int horasTranscurridas = (int) (transcurrido / 1000 / 60 / 60);
+            if(minutosTranscurridos > 0) {
+                segundosTranscurridos = segundosTranscurridos - (minutosTranscurridos * 60);
+            }
+            if(horasTranscurridas > 0){
+                minutosTranscurridos = minutosTranscurridos - (horasTranscurridas * 60);
+            }
             Inicio.horasLabel.setText(String.valueOf(transcurrido / 1000 / 60 / 60));
-            Inicio.minutosLabel.setText(String.valueOf(transcurrido / 1000 / 60));
-            Inicio.segundosLabel.setText(String.valueOf(transcurrido / 1000));
+            Inicio.minutosLabel.setText(String.valueOf(minutosTranscurridos));
+            Inicio.segundosLabel.setText(String.valueOf(segundosTranscurridos));
         }
         GregorianCalendar fin = new GregorianCalendar();
         long tiempo = fin.getTimeInMillis() - inicio.getTimeInMillis();
